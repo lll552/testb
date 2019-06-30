@@ -19,9 +19,9 @@ return [
     // 应用地址
     'app_host'               => '',
     // 应用调试模式
-    'app_debug'              => false,
+    'app_debug'              => true,
     // 应用Trace
-    'app_trace'              => false,
+    'app_trace'              => true,
     // 是否支持多模块
     'app_multi_module'       => true,
     // 入口自动绑定模块
@@ -59,10 +59,10 @@ return [
     'deny_module_list'       => ['common'],
     // 默认控制器名
     'default_controller'     => 'Index',
-    // 默认操作名
+    // 名
     'default_action'         => 'index',
     // 默认验证器
-    'default_validate'       => '',
+    'default_valida默认操作te'       => '',
     // 默认的空模块名
     'empty_module'           => '',
     // 默认的空控制器名
@@ -97,11 +97,11 @@ return [
     // 是否开启路由延迟解析
     'url_lazy_route'         => false,
     // 是否强制使用路由
-    'url_route_must'         => false,
+    'url_route_must'         => true,
     // 合并路由规则
     'route_rule_merge'       => false,
     // 路由是否完全匹配
-    'route_complete_match'   => false,
+    'route_complete_match'   => true,
     // 使用注解路由
     'route_annotation'       => false,
     // 域名根，如thinkphp.cn
