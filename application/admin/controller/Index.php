@@ -23,7 +23,7 @@ class Index extends Controller
 
 
             if($return == 1){
-                 $this->success('登录成功','admin/home/login');
+                 $this->success('登录成功','admin/index/login');
             }else {
                   $this->error($return);
             }
@@ -32,5 +32,36 @@ class Index extends Controller
 
         return view();
     }
+
+    //register
+
+    public function register(){
+
+        if(request()->isAjax()){
+            $data = [
+                'username' => input('post.username'),
+                'password' => input('post.password'),
+                'compass' => input('post.compass'),
+                'nick' => input('post.nick'),
+                'email' => input('post.email')
+            ];
+
+            $result = model('Admin')->register($data);
+
+            if($result ==1 ){
+                $this->success("注册成功","admin/index/register");
+            }else{
+                $this->error($result);
+            }
+
+
+
+
+
+
+        }
+        return view();
+    }
+
 
 }

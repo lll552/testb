@@ -11,7 +11,7 @@
 
 //Route::get('/','admin/index/login');
 Route::rule('login','admin/index/login','GET|POST');
-
+Route::rule('register','admin/index/register','GET|POST');
 return [
 
 ];
