@@ -78,61 +78,61 @@
 
 
     $(function () {
-        $('#register').click(function(){
-            $.ajax({
-                url:"{:url('admin/index/register')}",
-                type:'post',
-                data:$('form').serialize(),
-                dataType: 'json',
-
-                success:function(data){
-                    console.log(data);
-                   if(data.code == 1){
-
-                       layer.msg(data.msg,{icon:6})
-                   }else{
-                       layer.open({
-                           title:"注册失败",
-                           icon:5,
-                           content:data.msg,
-                           time:3000
-                       })
-                   }
-                }
-            });
-            return false;
-        })
-
-        // $("#register").click(function(){
-        //
+        // $('#register').click(function(){
         //     $.ajax({
-        //         url: "{:url('admin/index/register')}",
-        //         type: 'post',
-        //         data: $('form').serialize(),
+        //         url:"{:url('admin/index/register')}",
+        //         type:'post',
+        //         data:$('form').serialize(),
         //         dataType: 'json',
+        //
         //         success:function(data){
         //             console.log(data);
-        //             if(data.code == 1){
-        //                 layer.msg(data.msg,{
-        //                     icon:6,
-        //                     time:2000
-        //                     },
-        //                     function () {
-        //                         location.href = data.url;
-        //                     })
-        //             }else {
-        //                 layer.open({
-        //                     title:"提交失败！",
-        //                     icon: 5,
-        //                     content:data.msg,
-        //                     time: 3000
-        //                 });
-        //             }
+        //            if(data.code == 1){
+        //
+        //                layer.msg(data.msg,{icon:6})
+        //            }else{
+        //                layer.open({
+        //                    title:"注册失败",
+        //                    icon:5,
+        //                    content:data.msg,
+        //                    time:3000
+        //                })
+        //            }
         //         }
         //     });
-        //
         //     return false;
-        // });
+        // })
+
+        $("#register").click(function(){
+
+            $.ajax({
+                url: "{:url('admin/index/register')}",
+                type: 'post',
+                data: $('form').serialize(),
+                dataType: 'json',
+                success:function(data){
+                    console.log(data);
+                    if(data.code == 1){
+                        layer.msg(data.msg,{
+                            icon:6,
+                            time:2000
+                            },
+                            function () {
+                                location.href = data.url;
+                            })
+                    }else {
+                        layer.open({
+                            title:"提交失败！",
+                            icon: 5,
+                            content:data.msg,
+                            time: 3000
+                        });
+                    }
+                }
+            });
+
+            return false;
+        });
 
 
         // $("#login").click(function(){

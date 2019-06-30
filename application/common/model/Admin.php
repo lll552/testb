@@ -41,11 +41,12 @@ class Admin extends Model
             return $validate->getError();
         }
 
+
         $return = $this->allowField(true)->save($data);
         if($return){
-            return 1;
-        }else{
-            return "注册失败";
+                return 1;
+            }else{
+                return "注册失败";
         }
 
 
