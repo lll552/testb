@@ -49,7 +49,8 @@ class Index extends Controller
             $result = model('Admin')->register($data);
 
             if($result ==1 ){
-                $this->success("注册成功","admin/index/register");
+                mail_to($data['email'], '注册成功', '注册成功');
+                $this->success("注册成功","admin/index/login");
             }else{
                 $this->error($result);
             }
