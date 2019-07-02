@@ -17,7 +17,8 @@ class Admin extends Validate
         'password|密码' => 'require',
         'compass|确认密码' => 'require|confirm:password',
         'nick|昵称' => 'require',
-        'email' => 'require|email'
+        'email' => 'require|email',
+        'code|验证码' => 'require',
     ];
 
     /**
@@ -38,5 +39,13 @@ class Admin extends Validate
     public function  sceneRegister(){
         return $this->only(['username','password','compass','nick','email'])
             ->append('username','unique:admin');
+    }
+
+    public function sceneSend(){
+        return $this->only(['email']);
+    }
+
+    public function sceneCode(){
+        return $this->only(['code']);
     }
 }

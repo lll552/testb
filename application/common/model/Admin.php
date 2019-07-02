@@ -55,4 +55,38 @@ class Admin extends Model
 
 
     }
+
+    public function send($data){
+
+        $validate = new \app\common\validate\Admin();
+        if(!$validate->scene('send')->check($data)){
+            return $validate->getError();
+        }
+
+        $return = $this -> where('email',$data['email'])->find();
+        if($return){
+
+            return 1;
+        }else{
+            return '无此邮箱';
+        }
+    }
+
+    public function reset($data){
+//        $validate = new \app\common\validate\Admin();
+//        if(!$validate->scene('code')->check($data)){
+//            return $validate->getError();
+//        }
+        $newPassword = mt_rand(10000,99999);
+        $memberInfo = $this->where('email',$data['email'])->find();
+        $memberInfo->password = $newPassword;
+        $result = $memberInfo->save();
+        if($result){
+            mail_to($data['email'],'密码重置成功','用户名'.$memberInfo['username'].'<br>'.'新密码'.$newPassword);
+            return 1;
+        }else{
+            return "重置失败";
+        }
+
+    }
 }

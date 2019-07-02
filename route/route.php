@@ -12,6 +12,8 @@
 //Route::get('/','admin/index/login');
 Route::rule('login','admin/index/login','GET|POST');
 Route::rule('register','admin/index/register','GET|POST');
+Route::rule('forget','admin/index/forget','GET|POST');
+Route::rule('reset','admin/index/reset','GET|POST');
 return [
 
 ];
