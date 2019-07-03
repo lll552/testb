@@ -26,7 +26,12 @@ class Admin extends Model
             if($result['status'] != 1){
                 return '此贴被禁用';
             }
-
+            $sessionDate = [
+                'id' => $result['id'],
+                'nick' => $result['nick'],
+                'is_super' => $result['is_super']
+            ];
+            session('admin',$sessionDate);
             return 1;
         }else {
             return '用户名和密码错误';

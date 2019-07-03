@@ -7,6 +7,13 @@ use think\Model;
 
 class Index extends Controller
 {
+    public function initialize()
+    {
+        if(session('?admin.id')){
+            $this->redirect('admin/home/index');
+        }
+    }
+
     //
     public function login(){
 
@@ -23,7 +30,7 @@ class Index extends Controller
 
 
             if($return == 1){
-                 $this->success('登录成功','admin/index/login');
+                 $this->success('登录成功','admin/home/index');
             }else {
                   $this->error($return);
             }

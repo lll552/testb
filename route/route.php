@@ -14,6 +14,10 @@ Route::rule('login','admin/index/login','GET|POST');
 Route::rule('register','admin/index/register','GET|POST');
 Route::rule('forget','admin/index/forget','GET|POST');
 Route::rule('reset','admin/index/reset','GET|POST');
+Route::rule('index','admin/home/index','GET');
+Route::rule('logout','admin/home/logout','POST');
+Route::rule('catelist','admin/cate/list','get');
+Route::rule('cateadd','admin/cate/add','GET|POST');
 return [
 
 ];
