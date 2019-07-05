@@ -12,6 +12,10 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+
+function replace($data){
+    return str_replace('span','a',$data);
+}
 // 应用公共文件
 function mail_to($to, $title, $content){
     $mail = new PHPMailer(true);

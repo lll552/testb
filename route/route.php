@@ -18,6 +18,9 @@ Route::rule('index','admin/home/index','GET');
 Route::rule('logout','admin/home/logout','POST');
 Route::rule('catelist','admin/cate/list','get');
 Route::rule('cateadd','admin/cate/add','GET|POST');
+Route::rule('catesort','admin/cate/sort','get|post');
+Route::rule('cateedit/[:id]','admin/cate/edit','get|post');
+Route::rule('catedel','admin/cate/del','post');
 return [
 
 ];

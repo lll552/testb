@@ -21,20 +21,16 @@
             <!-- /Page Breadcrumb -->
             <!-- Page Body -->
             <div class="page-body">
-                <a href="cateadd.html" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i>&nbsp;栏目添加</a>
+                <a href="{:url('admin/cate/add')}" tn btn-sm btn-primary"><i class="fa fa-plus"></i>&nbsp;栏目添加</a>
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="widget">
                             <div class="widget-header">
                                 <span class="widget-caption">栏目列表</span>
                                 <div class="widget-buttons">
-                                    <ul class="pagination pagination-sm">
-                                        <li class="disabled"><a href="#">«</a></li>
-                                        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">»</a></li>
-                                    </ul>
+                                    {$cates|raw|replace}
+
+
                                 </div>
                             </div>
                             <div class="widget-body">
@@ -47,86 +43,20 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>2</td>
-                                        <td>
-                                            <a href="#" class="btn btn-azure btn-xs">编辑</a>
-                                            <a href="#" class="btn btn-danger btn-xs">删除</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>2</td>
-                                        <td>
-                                            <a href="#" class="btn btn-azure btn-xs">编辑</a>
-                                            <a href="#" class="btn btn-danger btn-xs">删除</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>2</td>
-                                        <td>
-                                            <a href="#" class="btn btn-azure btn-xs">编辑</a>
-                                            <a href="#" class="btn btn-danger btn-xs">删除</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>2</td>
-                                        <td>
-                                            <a href="#" class="btn btn-azure btn-xs">编辑</a>
-                                            <a href="#" class="btn btn-danger btn-xs">删除</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>2</td>
-                                        <td>
-                                            <a href="#" class="btn btn-azure btn-xs">编辑</a>
-                                            <a href="#" class="btn btn-danger btn-xs">删除</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>2</td>
-                                        <td>
-                                            <a href="#" class="btn btn-azure btn-xs">编辑</a>
-                                            <a href="#" class="btn btn-danger btn-xs">删除</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>2</td>
-                                        <td>
-                                            <a href="#" class="btn btn-azure btn-xs">编辑</a>
-                                            <a href="#" class="btn btn-danger btn-xs">删除</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>2</td>
-                                        <td>
-                                            <a href="#" class="btn btn-azure btn-xs">编辑</a>
-                                            <a href="#" class="btn btn-danger btn-xs">删除</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>2</td>
-                                        <td>
-                                            <a href="#" class="btn btn-azure btn-xs">编辑</a>
-                                            <a href="#" class="btn btn-danger btn-xs">删除</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>2</td>
-                                        <td>
-                                            <a href="#" class="btn btn-azure btn-xs">编辑</a>
-                                            <a href="#" class="btn btn-danger btn-xs">删除</a>
-                                        </td>
-                                    </tr>
+                                    {volist name='cates' id='vo'}
+                                        <tr>
+                                            <td><input type="text" name="sort" value="{$vo.sort}" dataid="{$vo.id}" size="1"></td>
+                                            <td>{$vo.catename}</td>
+                                            <td>
+                                                <a href="{:url('admin/cate/edit',['id' => $vo.id])}" class="btn btn-azure btn-xs">编辑</a>
+                                                <a href="#"  class="btn btn-danger btn-xs cate-del" dataid="{$vo.id}" dataname="{$vo.catename}">删除</a>
+                                            </td>
+                                        </tr>
+                                    {/volist}
+
+
+
+
                                     </tbody>
                                 </table>
                             </div>
@@ -145,6 +75,75 @@
 </div>
 
 {include file="public/_js" /}
+
+<script>
+    $(function () {
+        $('.pagination').addClass('pagination-sm');
+
+        $('input[name=sort]').change(function () {
+            var sort = $(this).val();
+            var id = $(this).attr("dataid");
+
+            $.ajax({
+                url:"{:url('admin/cate/sort')}",
+                type:'post',
+                data:{sort:sort,id:id},
+                dataType:'json',
+                success:function (data) {
+                    console.log(data);
+                    if(data.code == 1){
+                        layer.msg(data.msg,{icon:6,time:2000},function () {
+                            location.href = data.url;
+                        })
+                    }else{
+                        layer.open({
+                            title:"修改失败",
+                            icon:5,
+                            content:data.msg,
+                            anim:6
+                        })
+                    }
+                }
+            });
+            return false;
+        });
+
+        $('.cate-del').click(function () {
+            var id = $(this).attr('dataid');
+            var name = $(this).attr('dataname');
+
+            layer.confirm('确定要删除栏目'+name+'吗？',{icon:5,title:"栏目删除"},function (index) {
+                layer.close(index);
+                $.ajax({
+                    url:"{:url('admin/cate/del')}",
+                    type:'post',
+                    data:{id:id},
+                    dateType:'json',
+                    success:function (data) {
+                        if(data.code == 1){
+                            layer.msg(data.msg,{
+                                icon:6,
+                                time:200
+                            },function () {
+                                location.href = data.url;
+                            });
+                        }else{
+                            layer.open({
+                                title:"删除失败",
+                                icon:5,
+                                content:data.msg,
+                                anim:6
+                            });
+                        }
+                    }
+
+
+                });
+            });
+            return false;
+        });
+    });
+</script>
 </body>
 <!--  /Body -->
 </html>
