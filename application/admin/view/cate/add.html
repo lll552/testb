@@ -68,6 +68,67 @@
 </div>
 
 {include file="public/_js" /}
+
+<script>
+    $(function () {
+
+
+        $("#cateAdd").click(function() {
+            $.ajax({
+                url: "{:url('admin/cate/add')}",
+                type: 'post',
+                data: $('form').serialize(),
+                dataType: 'json',
+                success:function(data){
+                    console.log(data);
+                    if(data.code == 1){
+                        layer.msg(data.msg,{
+                                icon:6,
+                                time:2000
+                            },
+                            function () {
+                                location.href = data.url;
+                            })
+                    }else {
+                        layer.open({
+                            title:"提交失败！",
+                            icon: 5,
+                            content:data.msg,
+                            time: 3000
+                        });
+                    }
+                }
+            });
+
+            // $.ajax({
+            //     url:"{:url('admin/cate/add1')}",
+            //     type:'post',
+            //     data:$('form').serialize(),
+            //     dateType:'json',
+            //     success:function (data) {
+            //         console.log('data');
+            //         if(data.code == 1){
+            //
+            //             layer.msg(data.msg,{
+            //                 icon:6,
+            //                 time:2000
+            //             },function() {
+            //                 location.href = data.url;
+            //             })
+            //         }else{
+            //             layer.open({
+            //                 title:"添加栏目失败",
+            //                 icon:5,
+            //                 content:data.msg,
+            //                 anim:6
+            //             })
+            //         }
+            //     }
+            // });
+            return false;
+        });
+    })
+</script>
 </body>
 <!--  /Body -->
 </html>

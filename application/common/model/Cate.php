@@ -10,6 +10,9 @@ class Cate extends Model
     //
     use SoftDelete;
 
+    public function article(){
+        return $this->hasMany('Article','cate_id','id');
+    }
     public function add($data){
         $validate = new \app\common\validate\Cate();
         if(!$validate->scene('add')->check($data)){

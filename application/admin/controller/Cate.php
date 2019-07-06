@@ -4,7 +4,7 @@ namespace app\admin\controller;
 
 use think\Controller;
 
-class Cate extends Controller
+class Cate extends Base
 {
     //
     public function list(){
@@ -82,8 +82,8 @@ class Cate extends Controller
 
     public function del(){
         if(request()->isAjax()){
-            $cateInfo = model('Cate')->find(input('post.id'));
-            $return = $cateInfo->delete();
+            $cateInfo = model('Cate')->with('article')->find(input('post.id'));
+            $return = $cateInfo->together('article')->delete();
             if($return){
                 $this->success('栏目删除成功','admin/cate/list');
             }else{

@@ -21,6 +21,11 @@ Route::rule('cateadd','admin/cate/add','GET|POST');
 Route::rule('catesort','admin/cate/sort','get|post');
 Route::rule('cateedit/[:id]','admin/cate/edit','get|post');
 Route::rule('catedel','admin/cate/del','post');
+Route::rule('articlelist','admin/article/list','get');
+Route::rule('articleadd','admin/article/add','get|post');
+Route::rule('articletop','admin/article/top','post');
+Route::rule('articleedit/[:id]','admin/article/edit','get|post');
+Route::rule('articledel','admin/article/del','post');
 return [
 
 ];
