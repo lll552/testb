@@ -82,7 +82,11 @@ class Cate extends Base
 
     public function del(){
         if(request()->isAjax()){
-            $cateInfo = model('Cate')->with('article')->find(input('post.id'));
+            $cateInfo = model('Cate')->with('article,article.comments')->find(input('post.id'));
+            foreach($cateInfo['article'] as $k => $v){
+                $v->together('comments')->delete();
+            }
+
             $return = $cateInfo->together('article')->delete();
             if($return){
                 $this->success('栏目删除成功','admin/cate/list');

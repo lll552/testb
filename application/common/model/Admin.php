@@ -94,4 +94,43 @@ class Admin extends Model
         }
 
     }
+
+    public function add($data){
+        $validate = new \app\common\validate\Admin();
+        if(!$validate->scene('add')->check($data)){
+            return $validate->getError();
+        }
+
+        $adminInfo = $this->allowField(true)->save($data);
+        if($adminInfo){
+            return 1;
+        }else{
+            return "添加失败";
+        }
+
+        return view();
+    }
+    public function edit($data){
+        $validate = new \app\common\validate\Admin();
+        if(!$validate->scene('edit')->check($data)){
+            return $validate->getError();
+        }
+
+        $adminInfo = $this->find($data['id']);
+        if($adminInfo['password'] != $data['oldpass']){
+            return  '密码不正确！';
+        }
+        $adminInfo['password'] = $data['newpass'];
+        $adminInfo['nick'] = $data['nick'];
+        $adminInfo['email'] = $data['email'];
+        $result = $adminInfo->save();
+        if($result){
+            return 1;
+        }else{
+            return "修改失败";
+        }
+
+
+    }
+
 }

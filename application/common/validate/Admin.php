@@ -13,9 +13,11 @@ class Admin extends Validate
      * @var array
      */
     protected $rule = [
-        'username|读者姓名' => 'require',
+        'username|读者姓名' => 'require|unique:admin',
         'password|密码' => 'require',
         'compass|确认密码' => 'require|confirm:password',
+        'oldpass|旧密码' => 'require',
+        'newpass|新密码' => 'require',
         'nick|昵称' => 'require',
         'email' => 'require|email',
         'code|验证码' => 'require',
@@ -47,5 +49,13 @@ class Admin extends Validate
 
     public function sceneCode(){
         return $this->only(['code']);
+    }
+
+    public function sceneAdd(){
+        return $this->only(['username','password','compass','nick','email']);
+    }
+
+    public function sceneEdit(){
+        return $this->only(['oldpass','newpass','nick','email']);
     }
 }

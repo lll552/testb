@@ -10,6 +10,10 @@ class Article extends Model
     use SoftDelete;
     //
 
+    public function comments(){
+        return $this->hasMany('Comment','article_id','id');
+    }
+
     public function cate(){
         return $this->belongsTo('Cate','cate_id','id');
     }

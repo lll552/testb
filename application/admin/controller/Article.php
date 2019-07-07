@@ -104,8 +104,8 @@ class Article extends Base
 
     public function del(){
         if(request()->isAjax()){
-            $articleInfo = model('Article')->find(input('post.id'));
-            $result = $articleInfo->delete();
+            $articleInfo = model('Article')->with('comments')->find(input('post.id'));
+            $result = $articleInfo->together('comments')->delete();
             if($result){
                 $this->success('删除'.input('post.name').'成功','admin/article/list');
             }else{
