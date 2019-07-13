@@ -7,6 +7,7 @@ use think\model\concern\SoftDelete;
 
 
 
+
 class Admin extends Model
 {
     //

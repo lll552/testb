@@ -74,3 +74,8 @@ function mailto($to, $title, $content){
 // Send the message
     $result = $mailer->send($message);
 }
+
+
+function strToArray($data){
+    return explode("|",$data);
+}

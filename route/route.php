@@ -8,7 +8,9 @@
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-
+Route::rule('cate/[:id]','index/index/index','get');
+Route::rule('/','index/index/index');
+Route::rule('article-<id>','index/article/info','get');
 //Route::get('/','admin/index/login');
 Route::rule('login','admin/index/login','GET|POST');
 Route::rule('register','admin/index/register','GET|POST');
