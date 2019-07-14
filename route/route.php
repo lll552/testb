@@ -11,6 +11,9 @@
 Route::rule('cate/[:id]','index/index/index','get');
 Route::rule('/','index/index/index');
 Route::rule('article-<id>','index/article/info','get');
+Route::rule('register','index/index/register','get|post');
+Route::rule('login','index/index/login','get|post');
+Route::rule('loginout','index/index/loginout','post');
 //Route::get('/','admin/index/login');
 Route::rule('login','admin/index/login','GET|POST');
 Route::rule('register','admin/index/register','GET|POST');

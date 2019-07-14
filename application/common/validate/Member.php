@@ -15,10 +15,12 @@ class Member extends Validate
 	protected $rule = [
 	    'username|会员名称' => 'require|unique:member',
         'password|密码' => 'require',
+        'conpass|确认密码' => 'require|confirm:password',
         'pldword|旧密码' => 'require',
         'pnword|新密码' => 'require',
         'nickname|昵称' => 'require',
-        'email|邮箱' => 'require'
+        'email|邮箱' => 'require',
+        'verify|验证码' => 'require|captcha'
     ];
     
     /**
@@ -35,5 +37,13 @@ class Member extends Validate
 
     public function sceneEdit(){
         $this->only(['pldword','pnword','nickname']);
+    }
+
+    public function sceneRegister(){
+        $this->only(['username','password','conpass','nickname','email','verify']);
+    }
+
+    public function sceneLogin(){
+        $this->only(['username','password','verify'])->remove('username','unique');
     }
 }

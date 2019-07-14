@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="/static/index/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/static/index/css/animate.css" />
     <link rel="stylesheet" href="/static/index/css/index.css" />
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/layer/2.3/layer.js"></script>
+
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-static-top">
@@ -29,8 +32,13 @@
                 {/volist}
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">登录</a></li>
-                <li><a href="#">注册</a></li>
+                {if session('?index.id')}
+                <li><a href="#">{:session('index.nickname')}</a></li>
+                <li><a href="#" id="loginout">退出</a></li>
+                {else /}
+                <li><a href="{:url('index/index/login')}">登录</a></li>
+                <li><a href="{:url('index/index/register')}">注册</a></li>
+                {/if}
                 <li><a href="#">投稿</a></li>
             </ul>
             <form action="#" class="navbar-form navbar-right">
@@ -166,11 +174,45 @@
     </div>
 </div>
 {/block}
+
+{block name="footer"}
 <div class="footer">
     <p>Copyright 2018 <a href="#">{$webInfo.copyright}</a> All Rights Reserved</p>
 </div>
-
+{/block}
 <script src="/static/index/js/jquery-3.3.1.min.js"></script>
 <script src="/static/index/js/bootstrap.min.js"></script>
+<script>
+    $(function () {
+        $("#loginout").click(function () {
+            $.ajax({
+                url:"{:url('index/index/loginout')}",
+                type:'post',
+                data:"{:session('index.id')}",
+                dataType:'json',
+                success:function (data) {
+                    if(data.code == 1){
+                        layer.msg(data.msg,{
+                            icon:6,
+                            time:2000
+                        },function () {
+                            location.href = data.url;
+                        });
+                    }else{
+                        layer.open({
+                            icon:5,
+                            title:'退出失败',
+                            content:data.msg,
+                            anim:6
+                        })
+                    }
+                }
+            });
+            return false;
+        });
+    });
+</script>
+{block name="js"}
+{/block}
 </body>
 </html>

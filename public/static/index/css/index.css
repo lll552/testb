@@ -3,7 +3,9 @@
 	text-shadow: 5px 5px 8px #FF0000;
 	font-style: italic;
 }
-
+.input-group-addon{
+	padding: 0;
+}
 .jumbotron p {
 	text-indent: 2em;
 }
