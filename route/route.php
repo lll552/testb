@@ -14,6 +14,8 @@ Route::rule('article-<id>','index/article/info','get');
 Route::rule('register','index/index/register','get|post');
 Route::rule('login','index/index/login','get|post');
 Route::rule('loginout','index/index/loginout','post');
+Route::rule('search','index/index/search','get');
+Route::rule('comm','index/article/comm','post');
 //Route::get('/','admin/index/login');
 Route::rule('login','admin/index/login','GET|POST');
 Route::rule('register','admin/index/register','GET|POST');

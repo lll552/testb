@@ -23,11 +23,14 @@
             <div class="page-header"><b>相关评论</b></div>
             <div class="comment-content">
                 <form action="#">
+
+                    <input type="text" class="hidden" name="article_id" value="{$articleInfo.id}">
+                    <input type="text" class="hidden" name="member_id" value="{:session('index.id')}">
                     <div class="form-group">
-                        <textarea class="form-control" id="comment" name="comment" rows="5" cols=""></textarea>
+                        <textarea class="form-control" id="comment" name="content" rows="5" cols=""></textarea>
                     </div>
                     <div class="form-group pull-right">
-                        <button class="btn btn-primary">评论（请认真评论）</button>
+                        <button class="btn btn-primary" id="articleComm">评论（请认真评论）</button>
                     </div>
                 </form>
             </div>
@@ -57,4 +60,53 @@
     </div>
 </div>
 </div>
+{/block}
+
+{block name='js'}
+
+<script>
+    $(function () {
+        $('#articleComm').click(function () {
+
+
+            if("{:session('?index.id')}"){
+                $.ajax({
+                    url:"{:url('index/article/comm')}",
+                    type:'post',
+                    data:$('form').serialize(),
+                    dataType:'json',
+                    success:function (data) {
+                        if(data.code == 1){
+                            layer.msg(data.msg,{
+                                icon:6,
+                                time:2000
+                            },function () {
+                                location.href = data.url;
+                            });
+                        }else{
+                            layer.open({
+                                title:'添加失败',
+                                icon:5,
+                                content:data.msg,
+                                anim:6
+                            });
+                        }
+                    }
+                });
+            }else{
+                layer.msg('请先登录',{
+                    icon:6,
+                    time:2000
+                },function () {
+                    location.href = "{:url('index/index/login')}"
+                })
+            }
+
+
+            return false;
+
+        });
+    });
+</script>
+
 {/block}

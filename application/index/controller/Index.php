@@ -80,5 +80,20 @@ class Index extends Base
         }
     }
 
+    public function search(){
+
+        $where[] = ["title",'like','%'.input('keyword').'%'];
+        $catename = input('keyword');
+        $Articles = model('Article')->where($where)->order('create_time','desc')->paginate(5);
+        $viewData = [
+            'articles' => $Articles,
+
+            'catename' => $catename
+        ];
+        $this->assign($viewData);
+        return view('index');
+
+    }
+
 
 }
