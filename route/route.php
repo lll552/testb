@@ -12,7 +12,7 @@ Route::rule('cate/[:id]','index/index/index','get');
 Route::rule('/','index/index/index');
 Route::rule('article-<id>','index/article/info','get');
 Route::rule('register','index/index/register','get|post');
-Route::rule('login','index/index/login','get|post');
+Route::rule('loginf','index/index/login','get|post');
 Route::rule('loginout','index/index/loginout','post');
 Route::rule('search','index/index/search','get');
 Route::rule('comm','index/article/comm','post');
