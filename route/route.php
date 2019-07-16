@@ -16,6 +16,7 @@ Route::rule('loginf','index/index/login','get|post');
 Route::rule('loginout','index/index/loginout','post');
 Route::rule('search','index/index/search','get');
 Route::rule('comm','index/article/comm','post');
+Route::rule('booklist','index/book/list','get|post');
 //Route::get('/','admin/index/login');
 Route::rule('login','admin/index/login','GET|POST');
 Route::rule('register','admin/index/register','GET|POST');
@@ -46,6 +47,8 @@ Route::rule('admindel','admin/admin/del','post');
 Route::rule('commentlist','admin/comment/all','get');
 Route::rule('commentdel','admin/comment/del','post');
 Route::rule('systemset','admin/system/set','get|post');
+Route::rule('booklisth','admin/book/list','get|post');
+Route::rule('status','admin/book/status','post');
 return [
 
 ];

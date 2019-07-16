@@ -9,7 +9,7 @@ class Article extends Base
 {
     //
 
-    use SoftDelete;
+
 
     public function add(){
         if(request()->isAjax()){
