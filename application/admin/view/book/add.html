@@ -1,0 +1,122 @@
+{include file='public/_head' /}
+<!-- Main Container -->
+<div class="main-container container-fluid">
+    <!-- Page Container -->
+    <div class="page-container">
+
+        <!-- Page Sidebar -->
+        {include file='public/_left' /}
+        <!-- /Page Sidebar -->
+        <!-- Page Content -->
+        <div class="page-content">
+            <!-- Page Breadcrumb -->
+            <div class="page-breadcrumbs">
+                <ul class="breadcrumb">
+                    <li>
+                        <i class="fa fa-home"></i>&nbsp;文章管理
+                    </li>
+                    <li>文章列表</li>
+                </ul>
+            </div>
+            <!-- /Page Breadcrumb -->
+            <!-- Page Body -->
+            <h1>ajax大文件切割上传</h1>
+
+            <input type="file" name="video" onchange="selfile();" />
+                     <hr/>
+                     <div id="progress">
+                         <div id="bar"></div>
+                     </div>
+                     <div id="debug2"></div>
+                     <hr/>
+                     <div id="debug"></div>
+
+
+
+
+
+            <!-- /Page Body -->
+        </div>
+        <!-- /Page Content -->
+
+    </div>
+    <!-- /Page Container -->
+    <!-- Main Container -->
+
+</div>
+
+{include file='public/_js' /}
+
+
+<style type='text/css'>
+    img{ width:500px; }
+    #progress{width:500px; height:15px; border:1px solid green;}
+    #bar{width:0%; height:100%; background:green;}
+</style>
+
+<script>
+
+
+    function selfile(){
+
+        const LENGTH = 1024 * 1024 * 10;//每次上传的大小
+
+        var file = document.getElementsByName('video')[0].files[0];//文件对象
+
+        var filename = document.getElementsByName('video')[0].files[0].name;
+
+        var totalSize = file.size;//文件总大小
+
+        var start = 0;//每次上传的开始字节
+
+        var end = start + LENGTH;//每次上传的结尾字节
+
+        var fd = null//创建表单数据对象
+
+        var blob = null;//二进制对象
+
+        var xhr = null;//xhr对象
+
+        var percent = 0;
+
+        while(start < totalSize){
+
+            fd = new FormData();//每一次需要重新创建
+
+            xhr = new XMLHttpRequest();//需要每次创建并设置参数
+
+            xhr.open('POST',"bookupload",false);
+
+            blob = file.slice(start,end);//根据长度截取每次需要上传的数据
+
+            fd.append('video',blob);//添加数据到fd对象中
+
+            fd.append('filename',filename); //获取文件的名称
+
+            xhr.send(fd);//将fd数据上传
+
+
+
+            //重新设置开始和结尾
+
+            start = end;
+
+            end = start + LENGTH;
+
+
+            percent = 100 * end /totalSize ;
+            percent = percent >= 100 ? 100 : percent;
+            document.getElementById('bar').style.width = percent + "%";
+            document.getElementById('bar').innerHTML =  parseInt(percent) + "%"  ;
+
+        }
+
+
+
+    }
+
+</script>
+
+</body>
+<!--  /Body -->
+</html>

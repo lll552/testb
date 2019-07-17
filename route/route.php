@@ -48,6 +48,8 @@ Route::rule('commentlist','admin/comment/all','get');
 Route::rule('commentdel','admin/comment/del','post');
 Route::rule('systemset','admin/system/set','get|post');
 Route::rule('booklisth','admin/book/list','get|post');
+Route::rule('bookaddh','admin/book/add','get|post');
+Route::rule('bookupload','admin/book/upload','post');
 Route::rule('status','admin/book/status','post');
 return [
 
